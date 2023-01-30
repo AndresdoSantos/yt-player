@@ -10,6 +10,7 @@ import YouTubeIFrame, { PLAYER_STATES } from 'react-native-youtube-iframe'
 import * as ScreenOrientation from 'expo-screen-orientation'
 
 import { styles, VIDEO_HEIGHT } from './styles'
+import { StatusBar } from 'expo-status-bar'
 
 export const Home = () => {
   const { width } = useWindowDimensions()
@@ -33,8 +34,9 @@ export const Home = () => {
 
   useEffect(() => {
     async function get() {
-      const response = await fetch()
-      // `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=xE_rMj35BIM&key=${process.env.GOOGLE_API_KEY}`,
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=photograph&key=AIzaSyDUJL9XvjstfeO81CKT9Iq9J6xBEa3qJ2g`,
+      )
 
       const data = await response.json()
 
@@ -45,12 +47,14 @@ export const Home = () => {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <TextInput
+    <View className="flex-1 bg-[#1a1d22]">
+      <StatusBar style="light" />
+
+      {/** <TextInput
         style={styles.searchInput}
         onChangeText={setSearch}
         value={search}
-      />
+      /> */}
 
       <View style={styles.player}>
         {!videoReady && <ActivityIndicator color="red" />}
